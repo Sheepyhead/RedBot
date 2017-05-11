@@ -1,4 +1,7 @@
+package com.sheepy.redbot;
+
 import sx.blah.discord.api.IDiscordClient;
+
 
 /**
  * Created by kairy on 4/28/2017.

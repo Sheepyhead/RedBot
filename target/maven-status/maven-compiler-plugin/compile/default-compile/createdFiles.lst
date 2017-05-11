@@ -1,0 +1,5 @@
+com\sheepy\redbot\Driver.class
+com\sheepy\redbot\PostListener.class
+com\sheepy\redbot\FeedReader$1.class
+com\sheepy\redbot\FeedReader.class
+com\sheepy\redbot\Bot.class

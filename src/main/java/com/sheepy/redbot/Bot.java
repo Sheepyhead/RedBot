@@ -1,3 +1,5 @@
+package com.sheepy.redbot;
+
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
@@ -86,7 +88,7 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
         for (IChannel nchannel : client.getChannels()) {
             if (!nchannel.getName().equals(CHANNEL_NAME)) continue;
             channel = nchannel;
-            channel.sendMessage("I AWAKE!!!");
+            //channel.sendMessage("I AWAKE!!!");
             break;
         }
     }

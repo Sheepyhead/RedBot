@@ -1,3 +1,5 @@
+package com.sheepy.redbot;
+
 import com.sun.syndication.feed.synd.*;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
@@ -12,9 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by kairy on 4/28/2017.

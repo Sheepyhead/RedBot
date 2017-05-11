@@ -1,3 +1,5 @@
+package com.sheepy.redbot;
+
 import java.util.ArrayList;
 
 /**
