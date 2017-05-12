@@ -24,7 +24,7 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
     private String author = "Sheepyhead";
     private IChannel channel;
 
-    public static String BOT_VERSION = "1.0.1";
+    public static String BOT_VERSION = "1.1.0";
     public static IDiscordClient client;
     private FeedReader feedReader;
 
@@ -97,9 +97,9 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
     @Override
     public void newPosts(ArrayList<RedditThread> posts) {
         if (posts.isEmpty()) return;
-        System.out.println("Call to newposts registered: " + posts);
         for (RedditThread thread : posts) {
             channel.sendMessage(thread.toString());
+            System.out.println(thread.toString());
         }
     }
 }

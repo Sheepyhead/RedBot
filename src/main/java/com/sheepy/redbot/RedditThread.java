@@ -6,4 +6,5 @@ public interface RedditThread {
     public String getTitle();
     public String getUrl();
     public String getAuthor();
+    public String getPostUrl();
 }
