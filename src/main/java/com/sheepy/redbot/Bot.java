@@ -12,18 +12,19 @@ import sx.blah.discord.util.DiscordException;
 import java.util.ArrayList;
 
 /**
- * Created by kairy on 4/28/2017.
+ * Created by Troels "Sheepyhead" Jessen on 4/28/2017.
  */
 public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
 
     private static final String CHANNEL_NAME = "pf_subreddit_talk";
+    private static final String DEBUG_CHANNEL_NAME = "sheepydebug";
     private String moduleName = "RedBot";
     private String moduleVersion = "1.0";
     private String moduleMinimumVersion = "2.3.0";
     private String author = "Sheepyhead";
     private IChannel channel;
 
-    public static String BOT_VERSION = "1.0.0";
+    public static String BOT_VERSION = "1.0.1";
     public static IDiscordClient client;
     private FeedReader feedReader;
 
@@ -94,12 +95,11 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
     }
 
     @Override
-    public void newPosts(ArrayList<ArrayList<String>> posts) {
+    public void newPosts(ArrayList<RedditThread> posts) {
         if (posts.isEmpty()) return;
         System.out.println("Call to newposts registered: " + posts);
-        String message = "**" + posts.get(0).get(0) + "**, by *"
-                + posts.get(0).get(1) + "*\n"
-                + "**Thread:** " + posts.get(1).get(0);
-        channel.sendMessage(message);
+        for (RedditThread thread : posts) {
+            channel.sendMessage(thread.toString());
+        }
     }
 }

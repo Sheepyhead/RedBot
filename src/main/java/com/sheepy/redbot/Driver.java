@@ -4,7 +4,7 @@ import sx.blah.discord.api.IDiscordClient;
 
 
 /**
- * Created by kairy on 4/28/2017.
+ * Created by Troels "Sheepyhead" Jessen on 4/28/2017.
  */
 public class Driver {
     public static String BOT_TOKEN = "MzA3NTg4MDM0NzkzMDQ2MDE4.C-XOtg.SmtKgHjBPxzKdzNLB3TF-nJu7e8";

@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by kairy on 4/28/2017.
+ * Created by Troels "Sheepyhead" Jessen on 4/28/2017.
  */
 public class FeedReader {
 
     /*
      * A map of {[post_title, username], [comment_link, thread_link]}
      */
-    private ArrayList<ArrayList<String>> newestPosts;
+    private ArrayList<RedditThread> newestPosts;
     private ArrayList<PostListener> listeners;
     private String url = "https://www.reddit.com/r/Pathfinder_RPG/new/.rss";
     public static int SLEEP_TIME = 10;
@@ -33,7 +33,7 @@ public class FeedReader {
     public FeedReader(int refreshTime){
         System.out.println("STARTING FEEDREADER");
         listeners = new ArrayList<PostListener>();
-        newestPosts = new ArrayList<ArrayList<String>>();
+        newestPosts = new ArrayList<RedditThread>();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -64,9 +64,10 @@ public class FeedReader {
                 SyndFeed feed = input.build(new XmlReader(stream));
                 //System.out.println(feed.getTitle());
                 List<SyndEntryImpl> entries = feed.getEntries();
-                ArrayList<ArrayList<String>> newPosts = new ArrayList<>();
+                ArrayList<RedditThread> newPosts = new ArrayList<>();
                 for (SyndEntryImpl e : entries)
                 {
+                    /*
                     ArrayList<String> list1 = new ArrayList<String>(2);
                     list1.add(e.getTitle());
                     list1.add(e.getAuthor());
@@ -79,6 +80,8 @@ public class FeedReader {
                     }
                     newPosts.add(list1);
                     newPosts.add(list2);
+                    */
+                    newPosts.add(new BasicRedditThread(e));
                 }
                 if (newPosts.equals(newestPosts))
                 {
@@ -87,7 +90,7 @@ public class FeedReader {
                     {
                         startRun = false;
                     } else {
-                        ArrayList<ArrayList<String>> difference = mapDifference(newestPosts, newPosts);
+                        ArrayList<RedditThread> difference = mapDifference(newestPosts, newPosts);
                         System.out.println("Difference: " + difference);
                         if (!difference.isEmpty()) {
                             System.out.println("CALLING newPosts");
@@ -150,7 +153,7 @@ public class FeedReader {
         listeners.remove(listener);
     }
 
-    private void newPosts(ArrayList<ArrayList<String>> posts)
+    private void newPosts(ArrayList<RedditThread> posts)
     {
         System.out.println("NEW POST");
         System.out.println(posts);
@@ -160,13 +163,13 @@ public class FeedReader {
         }
     }
 
-    public static ArrayList<ArrayList<String>> mapDifference(ArrayList<ArrayList<String>> oldPosts, ArrayList<ArrayList<String>> newPosts) {
-        ArrayList<ArrayList<String>> difference = new ArrayList<>();
-        if (oldPosts != newPosts) {
+    public static ArrayList<RedditThread> mapDifference(ArrayList<RedditThread> oldPosts, ArrayList<RedditThread> newPosts) {
+        ArrayList<RedditThread> difference = new ArrayList<>();
+        if (!oldPosts.equals(newPosts)) {
             difference.addAll(newPosts);
-            for (ArrayList<String> list : oldPosts) {
-                if (difference.contains(list))
-                    difference.remove(list);
+            for (RedditThread thread : oldPosts) {
+                if (difference.contains(thread))
+                    difference.remove(thread);
             }
         }
         return difference;
