@@ -85,7 +85,7 @@ public class RedBot implements IModule, IListener<ReadyEvent> {
         client.changeUsername("RedBot");
         client.changePlayingText("v. " + BOT_VERSION);
         for (IChannel nchannel : client.getChannels()) {
-            if (!nchannel.getName().equals(DEBUG_CHANNEL_NAME)) continue;
+            if (!nchannel.getName().equals(CHANNEL_NAME)) continue;
             channel = nchannel;
             channel.sendMessage("I AWAKE!!!");
             break;
