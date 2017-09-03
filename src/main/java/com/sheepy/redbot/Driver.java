@@ -9,7 +9,7 @@ import java.io.*;
  * Created by Troels "Sheepyhead" Jessen on 4/28/2017.
  */
 public class Driver {
-    public static String BOT_TOKEN = "MzA3NTg4MDM0NzkzMDQ2MDE4.C-XOtg.SmtKgHjBPxzKdzNLB3TF-nJu7e8";
+    public static String BOT_TOKEN = "MzA3NTg4MDM0NzkzMDQ2MDE4.DI2qgQ.5DI89McUh0v9fqIo3RNXEmnVdwo";
     public static String DEFAULT_OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) {
