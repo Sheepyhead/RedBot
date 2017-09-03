@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by Troels "Sheepyhead" Jessen on 4/28/2017.
  */
-public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
+public class RedBot implements IModule, IListener<ReadyEvent> {
 
     private static final String CHANNEL_NAME = "pf_subreddit_talk";
     private static final String DEBUG_CHANNEL_NAME = "sheepydebug";
@@ -23,14 +23,13 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
     private String moduleMinimumVersion = "2.3.0";
     private String author = "Sheepyhead";
     private IChannel channel;
+    private boolean interrupted = false;
 
-    public static String BOT_VERSION = "1.1.0";
+    public static String BOT_VERSION = "1.1.1";
     public static IDiscordClient client;
-    private FeedReader feedReader;
 
-    public Bot(FeedReader feedReader) {
-        this.feedReader = feedReader;
-        feedReader.addPostListener(this);
+    public RedBot() {
+        interrupted = false;
     }
 
     @Override
@@ -81,25 +80,25 @@ public class Bot implements IModule, IListener<ReadyEvent>, PostListener {
         }
     }
 
-
     @Override
     public void handle(ReadyEvent readyEvent) {
         client.changeUsername("RedBot");
         client.changePlayingText("v. " + BOT_VERSION);
         for (IChannel nchannel : client.getChannels()) {
-            if (!nchannel.getName().equals(CHANNEL_NAME)) continue;
+            if (!nchannel.getName().equals(DEBUG_CHANNEL_NAME)) continue;
             channel = nchannel;
-            //channel.sendMessage("I AWAKE!!!");
+            channel.sendMessage("I AWAKE!!!");
             break;
         }
+        DiscordBotModule redditModule = new RedditRSSModule(channel, "https://www.reddit.com/r/Pathfinder_RPG/new/.rss", 10);
+        redditModule.start();
+        while (!interrupted) {}
+        redditModule.stop();
+
     }
 
-    @Override
-    public void newPosts(ArrayList<RedditThread> posts) {
-        if (posts.isEmpty()) return;
-        for (RedditThread thread : posts) {
-            channel.sendMessage(thread.toString());
-            System.out.println(thread.toString());
-        }
+    public void interrupt()
+    {
+        interrupted = true;
     }
 }

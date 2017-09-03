@@ -37,7 +37,7 @@ public class FeedReader {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                //System.out.println("RUNNING FEEDREADER");
+                System.out.println("RUNNING FEEDREADER");
                 while (!Thread.interrupted()) {
                     grabNewestPosts();
                     try {
@@ -53,16 +53,16 @@ public class FeedReader {
 
     public void grabNewestPosts()
     {
-        //System.out.println("POST GRABBING STARTED");
+        System.out.println("POST GRABBING STARTED");
         try (CloseableHttpClient client = HttpClients.createMinimal()) {
             HttpUriRequest request = new HttpGet(url);
             request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36");
             try (CloseableHttpResponse response = client.execute(request);
                  InputStream stream = response.getEntity().getContent()) {
                 SyndFeedInput input = new SyndFeedInput();
-                //System.out.println(getStringFromInputStream(stream));
+                System.out.println(getStringFromInputStream(stream));
                 SyndFeed feed = input.build(new XmlReader(stream));
-                //System.out.println(feed.getTitle());
+                System.out.println(feed.getTitle());
                 List<SyndEntryImpl> entries = feed.getEntries();
                 ArrayList<RedditThread> newPosts = new ArrayList<>();
                 for (SyndEntryImpl e : entries)
@@ -99,7 +99,7 @@ public class FeedReader {
                     }
 
                     newestPosts = newPosts;
-                    //System.out.println(newestPosts);
+                    System.out.println(newestPosts);
                 }
             } catch (Exception e)
             {

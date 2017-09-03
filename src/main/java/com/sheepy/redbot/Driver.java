@@ -11,8 +11,8 @@ public class Driver {
     public static void main(String[] args) {
 
         FeedReader feedReader = new FeedReader(10);
-        Bot bot = new Bot(feedReader);
-        IDiscordClient client = Bot.createClient(BOT_TOKEN, true);
+        RedBot bot = new RedBot();
+        IDiscordClient client = RedBot.createClient(BOT_TOKEN, true);
         bot.enable(client);
     }
 }
