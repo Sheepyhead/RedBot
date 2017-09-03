@@ -60,7 +60,6 @@ public class FeedReader {
             try (CloseableHttpResponse response = client.execute(request);
                  InputStream stream = response.getEntity().getContent()) {
                 SyndFeedInput input = new SyndFeedInput();
-                System.out.println(getStringFromInputStream(stream));
                 SyndFeed feed = input.build(new XmlReader(stream));
                 System.out.println(feed.getTitle());
                 List<SyndEntryImpl> entries = feed.getEntries();
